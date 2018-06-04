@@ -27,14 +27,12 @@ public class IndexTest {
 
 	public static void main(String[] args) throws IOException {
 
-		RestClient restClient = RestClient
-				.builder(new HttpHost("192.168.16.21", 9200, "http"), new HttpHost("192.168.16.22", 9200, "http"))
-				.build();
-		RestHighLevelClient client = new RestHighLevelClient(restClient);
+		RestHighLevelClient client = new RestHighLevelClient(RestClient
+				.builder(new HttpHost("192.168.16.21", 9200, "http"), new HttpHost("192.168.16.22", 9200, "http")));
 
 		indexSourceParams(client);
 
-		restClient.close();
+		client.close();
 	}
 
 	public static void indexSourceParams(RestHighLevelClient client) throws IOException {
