@@ -50,37 +50,40 @@ public class IKAnalyzer {
 	public static void searchDoc(RestHighLevelClient client, String field, String value) throws IOException {
 		SearchRequest req = new SearchRequest("ik_java");
 		SearchSourceBuilder ssb = new SearchSourceBuilder();
-		ssb.query(QueryBuilders.matchQuery(field, value));
+		ssb.query(QueryBuilders.matchQuery(field, value));//查询field包含value的文档
 		req.source(ssb);
 		SearchResponse resp = client.search(req);
-		System.out.println(resp);
+		System.out.println(field+" : "+resp);
 	}
 
 	public static void indexDoc(RestHighLevelClient client, String title) throws IOException {
 		IndexRequest req = new IndexRequest("ik_java", "doc");
+		
 		XContentBuilder contentBuilder = XContentFactory.jsonBuilder().startObject()
 				.field("title", title)
 			.endObject();
 		req.source(contentBuilder);
+		
 		client.index(req);
 	}
 
 	public static void createIndex(RestHighLevelClient client) throws IOException {
 		CreateIndexRequest req = new CreateIndexRequest("ik_java");
+		
 		req.settings(Settings.builder().put("index.number_of_shards", 3).put("index.number_of_replicas", 2));
 		
 		XContentBuilder mappings = JsonXContent.contentBuilder().startObject()
 				.startObject("properties")
-					.startObject("title")
+					.startObject("title")//默认使用standard分词器
 						.field("type", "text")
 						.startObject("fields")
 							.startObject("title_ik_smart")
 								.field("type", "text")
-								.field("analyzer", "ik_smart")
+								.field("analyzer", "ik_smart")//使用ik_smart分词器
 							.endObject()
 							.startObject("title_ik_max_word")
 								.field("type", "text")
-								.field("analyzer", "ik_max_word")
+								.field("analyzer", "ik_max_word")//使用ik_max_word分词器
 							.endObject()
 						.endObject()
 					.endObject()
