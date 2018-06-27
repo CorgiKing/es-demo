@@ -11,7 +11,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.Strings;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
 
-public class GetTest {
+public class GetDoc {
 
 	public static void main(String[] args) throws IOException {
 
@@ -24,7 +24,7 @@ public class GetTest {
 	}
 
 	public static void getAsync(RestHighLevelClient client) {
-		GetRequest getRequest = new GetRequest("people", "dev", "dev1");
+		GetRequest getRequest = new GetRequest("people", "doc", "dev1");
 		
 		//异步执行
 		client.getAsync(getRequest, new ActionListener<GetResponse>() {
@@ -43,7 +43,7 @@ public class GetTest {
 	}
 	
 	public static void get(RestHighLevelClient client) throws IOException {
-		GetRequest getRequest = new GetRequest("people", "dev", "dev1");
+		GetRequest getRequest = new GetRequest("people", "doc", "dev1");
 		
 		//取出的字段
 		String[] includes = new String[]{"name", "info"};

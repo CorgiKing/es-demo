@@ -23,7 +23,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 
 import com.google.gson.Gson;
 
-public class IndexTest {
+public class IndexDoc {
 
 	public static void main(String[] args) throws IOException {
 
