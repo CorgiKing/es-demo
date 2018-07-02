@@ -30,7 +30,7 @@ public class LocationDemo {
 
 		// saveData();
 
-		search("杭州市拱墅区祥园路28号", 3);
+		search("杭州市拱墅区祥园路28号", 2);
 
 	}
 

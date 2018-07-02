@@ -1,4 +1,4 @@
-package org.corgiking.resthighclient;
+package org.corgiking.resthighclient.doc;
 
 import java.io.IOException;
 

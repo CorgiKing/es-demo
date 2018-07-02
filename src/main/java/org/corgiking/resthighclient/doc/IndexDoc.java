@@ -1,4 +1,4 @@
-package org.corgiking.resthighclient;
+package org.corgiking.resthighclient.doc;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.http.HttpHost;
 import org.apache.http.util.EntityUtils;
+import org.corgiking.resthighclient.People;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
