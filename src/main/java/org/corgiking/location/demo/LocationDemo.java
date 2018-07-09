@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpHost;
-import org.corgiking.location.demo.model.GeoPoint;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -13,6 +12,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.geo.GeoPoint;
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -36,7 +36,7 @@ public class LocationDemo {
 
 	public static void saveData() throws IOException {
 		String[] names = { "小明", "小红", "小胖" };
-		String[] addresses = { "杭州市拱墅区祥园路28号", "杭州市西湖区国风美域6号楼", "杭州市火车东站" };
+		String[] addresses = { "杭州市汇和城购物中心", "杭州长运公路汽车站", "杭州市火车东站" };
 
 		saveToEs(names, addresses);
 	}
@@ -57,7 +57,7 @@ public class LocationDemo {
 		SearchRequest req = new SearchRequest("location-demo");
 		SearchSourceBuilder ssb = new SearchSourceBuilder();
 		GeoDistanceQueryBuilder geoDistanceQueryBuilder = new GeoDistanceQueryBuilder("location");
-		geoDistanceQueryBuilder.point(point.getLatitude(), point.getLongitude()).distance(distance,
+		geoDistanceQueryBuilder.point(point.getLat(), point.getLon()).distance(distance,
 				DistanceUnit.KILOMETERS);
 		ssb.query(geoDistanceQueryBuilder);
 		req.source(ssb);
@@ -109,7 +109,7 @@ public class LocationDemo {
 		Map<String, Object> jsonMap = new HashMap<>();
 		jsonMap.put("name", name);
 		jsonMap.put("address", address);
-		String lat_lon = point.getLatitude() + "," + point.getLongitude();
+		String lat_lon = point.getLat() + "," + point.getLon();
 		jsonMap.put("location", lat_lon);
 
 		req.source(jsonMap);
